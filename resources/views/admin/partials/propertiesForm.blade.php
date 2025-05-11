@@ -23,6 +23,7 @@
         @include('components.input', ['class' => 'col', 'name' => 'postal_code', 'label' => 'Code Postal', 'value' => $property->postal_code])
     </div>
 
+    @include('components.select', ['name' => 'options', 'label' => 'Options', 'value' => $property->option()->pluck('id'), 'multiple' => true, 'options' => $options])
     @include('components.checkbox', ['name' => 'sold', 'label' => 'Vendu', 'value' => $property->sold])
 
     <button class="btn btn-primary">{{ $property->exists ? 'Modifier' : 'Créer' }}</button>

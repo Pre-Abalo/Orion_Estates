@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminPropertiesFormRequest;
+use App\Models\Option;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -38,7 +39,10 @@ class AdminPropertiesController extends Controller
             'floor' => fake()->numberBetween(0, 15),
             'postal_code' => fake()->postcode(),
         ]);
-        return view('admin.pages.properties.create', compact('property'));
+        return view('admin.pages.properties.create', [
+            'property' => $property,
+            'options' => Option::pluck('name', 'id')
+        ]);
     }
 
     /**
@@ -47,6 +51,7 @@ class AdminPropertiesController extends Controller
     public function store(AdminPropertiesFormRequest $request)
     {
         $property = Property::create($request->validated());
+        $property->option()->sync($request->validated('options'));
         return to_route('admin.properties.index')->with('success', 'Property created successfully');
     }
 
@@ -56,7 +61,8 @@ class AdminPropertiesController extends Controller
     public function edit(Property $property): View
     {
         return view('admin.pages.properties.edit', [
-            'property' => $property
+            'property' => $property,
+            'options' => Option::pluck('name', 'id')
         ]);
     }
 
@@ -66,6 +72,7 @@ class AdminPropertiesController extends Controller
     public function update(AdminPropertiesFormRequest $request, Property $property)
     {
         $property->update($request->validated());
+        $property->option()->sync($request->validated('options'));
         return to_route('admin.properties.index')->with('success', 'Property modified successfully');
     }
 

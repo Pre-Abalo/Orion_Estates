@@ -9,12 +9,20 @@
 <body>
 @include('admin.partials.navbar')
 <div class="container mt-5">
-    @if(session('success'))
-        <div class="alert alert-success" role="alert">
-            {{ session('success') }}
-        </div>
-    @endif
+    @include('admin.partials.flash')
     @yield('content')
 </div>
+@include('admin.partials.footer')
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new TomSelect("select", {
+            create: true,
+            plugins: ['remove_button'],
+            maxItems: 5,
+            persist: false,
+        });
+    });
+</script>
 </body>
 </html>

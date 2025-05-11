@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminOptionsController;
 use App\Http\Controllers\Admin\AdminPropertiesController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,5 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('properties', AdminPropertiesController::class)->except('show');
+    Route::resource('options', AdminOptionsController::class)->except('show');
 });

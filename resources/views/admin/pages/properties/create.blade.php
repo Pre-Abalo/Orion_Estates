@@ -4,5 +4,5 @@
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1>@yield('title')</h1>
     </div>
-    @include('admin.partials.form')
+    @include('admin.partials.propertiesForm')
 @endsection

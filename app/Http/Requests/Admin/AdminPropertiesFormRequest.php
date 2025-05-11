@@ -32,7 +32,8 @@ class AdminPropertiesFormRequest extends FormRequest
             'rooms' => ['required', 'integer', 'min:1'],
             'floor' => ['required', 'integer', 'min:0'],
             'price' => ['required', 'integer', 'min:0'],
-            'sold' => ['required', 'boolean']
+            'sold' => ['required', 'boolean'],
+            'options' => ['array', 'exists:options,id', 'required']
         ];
     }
 }
