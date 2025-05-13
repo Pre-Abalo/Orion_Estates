@@ -2,25 +2,34 @@
     $label ??= null;
     $class ??= null;
     $type ??= 'text';
-    $name ??= ''
+    $name ??= '';
+    $value = old($name, $property->$name ?? ($option->$name ?? null));
 @endphp
 
 <div @class(['form-group', $class])>
+    <label for="{{ $name }}">{{ $label }}</label>
+
     @if($type !== 'textarea')
-        <label for="{{ $name }}">{{ $label }}</label>
-        <input type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" id="{{ $name }}" name="{{ $name }}"
-               value="{{ old($name, $property->$name ?? $option->$name) }}">
-        @error($name)
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input
+            type="{{ $type }}"
+            class="form-control @error($name) is-invalid @enderror"
+            id="{{ $name }}"
+            name="{{ $name }}"
+            value="{{ $value }}"
+            aria-describedby="{{ $name }}-feedback"
+        >
     @else
-        <label for="{{ $name }}">{{ $label }}</label>
-        <textarea class="form-control" name="{{ $name }}" id="{{ $name }}">{{ old($name, $property->$name ?? $option->$name) }}</textarea>
-        @error($name)
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-            @enderror
+        <textarea
+            class="form-control @error($name) is-invalid @enderror"
+            name="{{ $name }}"
+            id="{{ $name }}"
+            aria-describedby="{{ $name }}-feedback"
+        >{{ $value }}</textarea>
     @endif
 
+    @error($name)
+        <div id="{{ $name }}-feedback" class="invalid-feedback">
+            {{ $message }}
+        </div>
+    @enderror
 </div>

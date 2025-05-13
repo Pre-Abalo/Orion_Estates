@@ -15,9 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('/biens', [\App\Http\Controllers\PropertiesController::class, 'index'])->name('properties.index');
+Route::get('/biens/{slug}-{property}', [\App\Http\Controllers\PropertiesController::class, 'show'])->name('properties.show')->where([
+    'property' => '[0-9]+',
+    'slug' => '[0-9a-z\-]+'
+]);
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('properties', AdminPropertiesController::class)->except('show');

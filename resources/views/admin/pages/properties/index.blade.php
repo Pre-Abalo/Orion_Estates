@@ -16,8 +16,12 @@
             </tr>
         </thead>
         <tbody>
+        @php
+            $count = 1
+        @endphp
             @forelse($properties as $property)
                 <tr>
+                    <td>{{ $count++ }}</td>
                     <td>{{ $property->title ?? __('N/A') }}</td>
                     <td>{{ $property->surface ?? __('N/A') }}</td>
                     <td>{{ $property->price ?? __('N/A') }}</td>

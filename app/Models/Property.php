@@ -27,4 +27,9 @@ class Property extends Model
     {
         return $this->belongsToMany(Option::class);
     }
+
+    public function getSlug(): string
+    {
+        return \Str::slug($this->title);
+    }
 }
