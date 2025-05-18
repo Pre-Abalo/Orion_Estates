@@ -22,7 +22,13 @@ Route::get('/biens/{slug}-{property}', [\App\Http\Controllers\PropertiesControll
     'slug' => '[0-9a-z\-]+'
 ]);
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::name('auth.')->group(function () {
+   Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login')->middleware('guest');
+   Route::post('/login', [\App\Http\Controllers\AuthController::class, 'doLogin']);
+   Route::delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout')->middleware('auth');
+});
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('properties', AdminPropertiesController::class)->except('show');
     Route::resource('options', AdminOptionsController::class)->except('show');
 });

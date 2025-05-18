@@ -16,27 +16,6 @@
 
         <hr class="mb-5">
 
-        <!-- Formulaire -->
-        <div class="card shadow-sm p-4 mb-5">
-            <h2 class="mb-3 text-primary">Intéressé par ce bien ?</h2>
-            <p class="text-muted">Remplissez les informations ci-dessous pour être contacté par un agent.</p>
-            <form class="vstack gap-3" action="" method="post">
-                @csrf
-                <div class="row">
-                    @include('components.input', ['class' => 'col-md-6', 'name' => 'firstname', 'label' => 'Prénom'])
-                    @include('components.input', ['class' => 'col-md-6', 'name' => 'lastname', 'label' => 'Nom'])
-                </div>
-                <div class="row">
-                    @include('components.input', ['class' => 'col-md-6', 'name' => 'phone', 'label' => 'Téléphone'])
-                    @include('components.input', ['type'=> 'email', 'class' => 'col-md-6', 'name' => 'email', 'label' => 'Email'])
-                </div>
-                <div class="row">
-                    @include('components.input', ['type'=> 'textarea', 'class' => 'col-12', 'name' => 'message', 'label' => 'Votre message'])
-                </div>
-                <button class="btn btn-primary w-100 py-2 mt-3">Envoyer votre demande</button>
-            </form>
-        </div>
-
         <!-- Description -->
         <div class="bg-light p-5 rounded mb-5 shadow-sm">
             <h2 class="mb-4">Description du bien</h2>
@@ -93,6 +72,28 @@
                     </ul>
                 </div>
             </div>
+        </div>
+
+
+        <!-- Formulaire -->
+        <div class="card shadow-sm p-4 mt-5">
+            <h2 class="mb-3 text-primary">Intéressé par ce bien ?</h2>
+            <p class="text-muted">Remplissez les informations ci-dessous pour être contacté par un agent.</p>
+            <form class="vstack gap-3" action="" method="post">
+                @csrf
+                <div class="row">
+                    @include('components.input', ['class' => 'col-md-6', 'name' => 'firstname', 'label' => 'Prénom'])
+                    @include('components.input', ['class' => 'col-md-6', 'name' => 'lastname', 'label' => 'Nom'])
+                </div>
+                <div class="row">
+                    @include('components.input', ['class' => 'col-md-6', 'name' => 'phone', 'label' => 'Téléphone'])
+                    @include('components.input', ['type'=> 'email', 'class' => 'col-md-6', 'name' => 'email', 'label' => 'Email'])
+                </div>
+                <div class="row">
+                    @include('components.input', ['type'=> 'textarea', 'class' => 'col-12', 'name' => 'message', 'label' => 'Votre message'])
+                </div>
+                <button class="btn btn-primary w-100 py-2 mt-3">Envoyer votre demande</button>
+            </form>
         </div>
     </div>
 

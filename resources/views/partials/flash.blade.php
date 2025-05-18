@@ -11,6 +11,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 @endif
+@if (session('alert'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session('alert') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show" role="alert">

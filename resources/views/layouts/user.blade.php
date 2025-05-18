@@ -8,7 +8,6 @@
 </head>
 <body>
 @include('partials.navbar')
-@include('partials.flash')
 @yield('content')
 @include('partials.footer')
 </body>
