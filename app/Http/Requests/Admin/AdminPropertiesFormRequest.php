@@ -33,7 +33,9 @@ class AdminPropertiesFormRequest extends FormRequest
             'floor' => ['required', 'integer', 'min:0'],
             'price' => ['required', 'integer', 'min:0'],
             'sold' => ['required', 'boolean'],
-            'options' => ['array', 'exists:options,id', 'required']
+            'options' => ['array', 'exists:options,id', 'required'],
+            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg']
+
         ];
     }
 }

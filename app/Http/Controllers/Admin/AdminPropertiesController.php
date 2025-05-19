@@ -14,10 +14,11 @@ class AdminPropertiesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         return view('admin.pages.properties.index', [
-            'properties' => Property::orderBy('created_at', 'desc')->paginate(25)
+            'properties' => Property::orderBy('created_at', 'desc')->paginate(25),
+            'page' => $request->input('page'),
         ]);
     }
 
@@ -52,6 +53,16 @@ class AdminPropertiesController extends Controller
     {
         $property = Property::create($request->validated());
         $property->option()->sync($request->validated('options'));
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $key => $image) {
+                if ($key >= 3) break; // Maximum 3 images
+
+                $path = $image->store('property_images', 'public');
+                $property->images()->create(['image_path' => $path]);
+            }
+        }
+
         return to_route('admin.properties.index')->with('success', 'Property created successfully');
     }
 

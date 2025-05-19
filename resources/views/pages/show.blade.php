@@ -3,27 +3,57 @@
 
 @section('content')
 
-    <div class="container my-5">
-        <!-- Titre Principal -->
-        <div class="text-center mb-5">
+<div class="container my-5">
+    <!-- Titre Principal et Carousel -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-8">
             <h1 class="display-4">{{ $property->title }}</h1>
             <h2 class="text-muted">{{ $property->surface }}m² - {{ $property->city }} ({{ $property->postal_code }})</h2>
-
             <div class="text-success fw-bold mt-3" style="font-size: 2.8rem;">
                 {{ number_format($property->price, thousands_separator: ' ') }} €
             </div>
         </div>
+        <div class="col-md-4">
+            @if ($property->images->count() > 0)
+                <div id="carousel-{{ $property->id }}" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach ($property->images as $key => $image)
+                            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                                <img src="{{ asset('storage/' . $image->image_path) }}" class="d-block w-100" alt="Image {{ $key + 1 }}" style="height: auto; max-height: 300px;">
+                            </div>
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $property->id }}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $property->id }}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            @endif
+        </div>
+    </div>
 
-        <hr class="mb-5">
+    <hr>
+
+    <div class="d-flex justify-content-center gap-3 my-4">
+        <a href="#description" class="btn btn-outline-primary">{{ __('Description') }}</a>
+        <a href="#specificites" class="btn btn-outline-secondary">{{ __('Spécificités') }}</a>
+        <a href="#contact" class="btn btn-outline-success">{{ __('Contact') }}</a>
+    </div>
+
+    <hr class="mb-5">
 
         <!-- Description -->
-        <div class="bg-light p-5 rounded mb-5 shadow-sm">
+        <div id="description" class="bg-light p-5 rounded mb-5 shadow-sm">
             <h2 class="mb-4">Description du bien</h2>
             <p style="white-space: pre-line">{!! nl2br($property->description) !!}</p>
         </div>
 
         <!-- Caractéristiques et Spécificités -->
-        <div class="row">
+        <div id="specificites" class="row">
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header text-white bg-secondary">
@@ -75,8 +105,7 @@
         </div>
 
 
-        <!-- Formulaire -->
-        <div class="card shadow-sm p-4 mt-5">
+        <div id="contact" class="card shadow-sm p-4 mt-5">
             <h2 class="mb-3 text-primary">Intéressé par ce bien ?</h2>
             <p class="text-muted">Remplissez les informations ci-dessous pour être contacté par un agent.</p>
             <form class="vstack gap-3" action="" method="post">

@@ -1,8 +1,9 @@
 <form class="vstack gap-2" action="{{ route($property->exists ? 'admin.properties.update' : 'admin.properties.store', $property) }}"
-      method="post">
-    @csrf
-    @method($property->exists ? 'PUT' : 'POST')
+      method="post" enctype="multipart/form-data">
 
+@csrf
+    @method($property->exists ? 'PUT' : 'POST')
+    @include('components.img')
     <div class="row">
         @include('components.input', ['class' => 'col', 'name' => 'title', 'label' => 'Titre', 'value' => $property->title])
         <div class="col row">
